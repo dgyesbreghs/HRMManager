@@ -1,6 +1,5 @@
+ [![Version](http://img.shields.io/cocoapods/v/HRMManager.svg?style=flat)](http://cocoapods.org/pods/HRMManager)
 [![Issues](https://img.shields.io/github/issues/dylangyesbreghs/HRMManager.svg)](http://cocoapods.org/pods/HRMManager)
-[![Forks](https://img.shields.io/github/forks/dylangyesbreghs/HRMManager.svg)](http://cocoapods.org/pods/HRMManager)
-[![Stars](https://img.shields.io/github/stars/dylangyesbreghs/HRMManager.svg)](http://cocoapods.org/pods/HRMManager)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 ## Problems, Suggestions, Pull Requests?
