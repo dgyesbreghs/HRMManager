@@ -2,13 +2,9 @@ PODS:
   - HRMManager (1.0.0)
 
 DEPENDENCIES:
-  - HRMManager (from `../`)
-
-EXTERNAL SOURCES:
-  HRMManager:
-    :path: ../
+  - HRMManager
 
 SPEC CHECKSUMS:
-  HRMManager: 62b59fbe24337ac0f1bb2951fcc25c600f6e0a11
+  HRMManager: 9af417e8d383cb47a13e5bc518cffc8954dbbd7d
 
 COCOAPODS: 0.39.0

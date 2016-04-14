@@ -64,18 +64,16 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>068D7529E9B0E8AA5C66D745020028CD</key>
+		<key>0519911AAEA2996D3C4EB816F47F8247</key>
 		<dict>
-			<key>children</key>
-			<array>
-				<string>10C984A3595F43F62953CEF68CF0744C</string>
-			</array>
+			<key>includeInIndex</key>
+			<string>1</string>
 			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>HRMManager</string>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
 			<key>path</key>
-			<string>HRMManager</string>
+			<string>HRMManager.xcconfig</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -92,10 +90,17 @@
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
 		</dict>
+		<key>0DA1F9D63E4B21015CF543A254F17D21</key>
+		<dict>
+			<key>fileRef</key>
+			<string>883D8B66E628F8D10661FBD2FE323040</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
 		<key>0E30FD81EE24A4784F7F4FDF36AF8697</key>
 		<dict>
 			<key>baseConfigurationReference</key>
-			<string>A7A5CEB2C6F740BB2CE7F5B4BFD0BD1C</string>
+			<string>0519911AAEA2996D3C4EB816F47F8247</string>
 			<key>buildSettings</key>
 			<dict>
 				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
@@ -150,19 +155,6 @@
 			<key>name</key>
 			<string>Debug</string>
 		</dict>
-		<key>10C984A3595F43F62953CEF68CF0744C</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>HRMManager.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>119072C64A19799964E1620D83F514FB</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -171,6 +163,19 @@
 			<string>PBXFileReference</string>
 			<key>path</key>
 			<string>Pods-Example.modulemap</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>11D2C554C075767062EEA455CD5DF9DA</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.plist.xml</string>
+			<key>path</key>
+			<string>Info.plist</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -208,25 +213,18 @@
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>30049CEC2C1C8023C3CAC4886485DE13</key>
+		<key>342FFADC2DD80232E0E8C75846DD051C</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
+			<string>sourcecode.c.objc</string>
 			<key>path</key>
-			<string>HRMManager-umbrella.h</string>
+			<string>HRMManager-dummy.m</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
-		</dict>
-		<key>33D309F404DD503CAD5EFC513805ED98</key>
-		<dict>
-			<key>fileRef</key>
-			<string>A3EB7D86E755C03AB0E2B312F225BD6F</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
 		</dict>
 		<key>40B4C89812EADEC4EC63A72C33F63EC6</key>
 		<dict>
@@ -282,26 +280,6 @@
 			<key>sourceTree</key>
 			<string>BUILT_PRODUCTS_DIR</string>
 		</dict>
-		<key>4B24C29AB65BA755B1A00715E7EC8698</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>BF98E74FD461DBC2E7869A97649C6EA7</string>
-				<string>A7A5CEB2C6F740BB2CE7F5B4BFD0BD1C</string>
-				<string>A3EB7D86E755C03AB0E2B312F225BD6F</string>
-				<string>A64F0BC7005834431077F8082CCF46A8</string>
-				<string>30049CEC2C1C8023C3CAC4886485DE13</string>
-				<string>C3F328993276E05F76641ECF2C9172B8</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Support Files</string>
-			<key>path</key>
-			<string>Example-iOS/Pods/Target Support Files/HRMManager</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>512F2F858C8E289299893835097E7C65</key>
 		<dict>
 			<key>buildActionMask</key>
@@ -349,13 +327,6 @@
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>5FDAB2719640B024B8E2467E15097E15</key>
-		<dict>
-			<key>fileRef</key>
-			<string>10C984A3595F43F62953CEF68CF0744C</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
 		<key>6759C8448EB7E27303DBD5E574267D86</key>
 		<dict>
 			<key>buildConfigurations</key>
@@ -373,7 +344,7 @@
 		<key>68C2BC9087F68E35CA518F24741829F9</key>
 		<dict>
 			<key>baseConfigurationReference</key>
-			<string>A7A5CEB2C6F740BB2CE7F5B4BFD0BD1C</string>
+			<string>0519911AAEA2996D3C4EB816F47F8247</string>
 			<key>buildSettings</key>
 			<dict>
 				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
@@ -549,13 +520,20 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>78339BF22968E85D5E1E923ECC21BCBF</key>
+		<dict>
+			<key>fileRef</key>
+			<string>342FFADC2DD80232E0E8C75846DD051C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
 		<key>7C5D1AD4CB830F4DC3069CB9B41891C5</key>
 		<dict>
 			<key>buildConfigurationList</key>
 			<string>00D524A46F377A8096FCFFD0EFCD55FA</string>
 			<key>buildPhases</key>
 			<array>
-				<string>C17D704149F550570B26A295165386E7</string>
+				<string>F0ED7A3A6ED29E377D3133952702E296</string>
 				<string>C7704AA692E3EE25C05B5511CF262651</string>
 				<string>0C1DB1E05AA1207576BEE555D9EA699B</string>
 			</array>
@@ -579,8 +557,8 @@
 			<key>children</key>
 			<array>
 				<string>BA6428E9F66FD5A23C0A2E06ED26CD2F</string>
-				<string>F2F1DA6C8D6DA28D35E9F875A2B66418</string>
 				<string>433CD3331B6C3787F473C941B61FC68F</string>
+				<string>E7A8B3E275038CBE4E04C9B5E2540A5F</string>
 				<string>5333C0F22AFE05C1E7DCC1510A05D172</string>
 				<string>6A4F6A14E3FB951290E4531728B7A461</string>
 			</array>
@@ -603,6 +581,21 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>883D8B66E628F8D10661FBD2FE323040</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>name</key>
+			<string>HRMManager.swift</string>
+			<key>path</key>
+			<string>HRMManager/HRMManager.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>8B6B506842A2C1C86B8805B18B20B980</key>
 		<dict>
 			<key>isa</key>
@@ -614,23 +607,23 @@
 			<key>targetProxy</key>
 			<string>40B4C89812EADEC4EC63A72C33F63EC6</string>
 		</dict>
-		<key>A3EB7D86E755C03AB0E2B312F225BD6F</key>
+		<key>A52A642A28BB0340D1E37B65F27072DB</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
+			<string>sourcecode.c.h</string>
 			<key>path</key>
-			<string>HRMManager-dummy.m</string>
+			<string>HRMManager-umbrella.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
 		<key>A61AF405C16CE6F63900847604A729DB</key>
 		<dict>
 			<key>fileRef</key>
-			<string>30049CEC2C1C8023C3CAC4886485DE13</string>
+			<string>A52A642A28BB0340D1E37B65F27072DB</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -640,19 +633,6 @@
 					<string>Public</string>
 				</array>
 			</dict>
-		</dict>
-		<key>A64F0BC7005834431077F8082CCF46A8</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>HRMManager-prefix.pch</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>A661FECCEBFF9D01869EE3B29C4C1EFF</key>
 		<dict>
@@ -740,32 +720,14 @@
 			<key>name</key>
 			<string>Debug</string>
 		</dict>
-		<key>A7A5CEB2C6F740BB2CE7F5B4BFD0BD1C</key>
+		<key>A94DD7DE42744372C159228BA0B5F7A9</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
 			<key>path</key>
-			<string>HRMManager.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>AC6F92E0C536049E4FF97D6B721060C8</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>068D7529E9B0E8AA5C66D745020028CD</string>
-				<string>4B24C29AB65BA755B1A00715E7EC8698</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>HRMManager</string>
-			<key>path</key>
-			<string>../..</string>
+			<string>HRMManager.modulemap</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -800,44 +762,6 @@
 			<string>Pods_Example.framework</string>
 			<key>sourceTree</key>
 			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>BF98E74FD461DBC2E7869A97649C6EA7</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>HRMManager.modulemap</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>C17D704149F550570B26A295165386E7</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>33D309F404DD503CAD5EFC513805ED98</string>
-				<string>5FDAB2719640B024B8E2467E15097E15</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>C3F328993276E05F76641ECF2C9172B8</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.xml</string>
-			<key>path</key>
-			<string>Info.plist</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>C51D3F6C393BA8793A0E0711B3EB6981</key>
 		<dict>
@@ -928,6 +852,22 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>D05E0E68973C8DE1B155BE0A268ECED0</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>883D8B66E628F8D10661FBD2FE323040</string>
+				<string>F07435175406932D3299B08C3A36381A</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>HRMManager</string>
+			<key>path</key>
+			<string>HRMManager</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>D41D8CD98F00B204E9800998ECF8427E</key>
 		<dict>
 			<key>attributes</key>
@@ -967,6 +907,19 @@
 				<string>01DE093CCC5A4CF63D3809E3D1F48394</string>
 			</array>
 		</dict>
+		<key>D4642B1B1C972F178706EBA6CD2D7E9C</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>HRMManager-prefix.pch</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>E512A5F985F876750237FD237C3AEEDA</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -993,6 +946,19 @@
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
 		</dict>
+		<key>E7A8B3E275038CBE4E04C9B5E2540A5F</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>D05E0E68973C8DE1B155BE0A268ECED0</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Pods</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>EFFB74AAA6B2AE8DABF0E88E61E09178</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -1006,25 +972,46 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>F07435175406932D3299B08C3A36381A</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>A94DD7DE42744372C159228BA0B5F7A9</string>
+				<string>0519911AAEA2996D3C4EB816F47F8247</string>
+				<string>342FFADC2DD80232E0E8C75846DD051C</string>
+				<string>D4642B1B1C972F178706EBA6CD2D7E9C</string>
+				<string>A52A642A28BB0340D1E37B65F27072DB</string>
+				<string>11D2C554C075767062EEA455CD5DF9DA</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Support Files</string>
+			<key>path</key>
+			<string>../Target Support Files/HRMManager</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F0ED7A3A6ED29E377D3133952702E296</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>78339BF22968E85D5E1E923ECC21BCBF</string>
+				<string>0DA1F9D63E4B21015CF543A254F17D21</string>
+			</array>
+			<key>isa</key>
+			<string>PBXSourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
 		<key>F2CDF8CBB36C90963652E12F4840DEF3</key>
 		<dict>
 			<key>fileRef</key>
 			<string>45D9C1FD2495DA5334F594F1F7BAB545</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
-		</dict>
-		<key>F2F1DA6C8D6DA28D35E9F875A2B66418</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>AC6F92E0C536049E4FF97D6B721060C8</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Development Pods</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>F9A03A478367A67DD20CD180B2100601</key>
 		<dict>
