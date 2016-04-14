@@ -2,6 +2,9 @@
 [![Issues](https://img.shields.io/github/issues/dylangyesbreghs/HRMManager.svg)](http://cocoapods.org/pods/HRMManager)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
+## Requirements
+iOS 8.0 or Higher.
+
 ## Problems, Suggestions, Pull Requests?
 Please open a [new Issue here](https://github.com/dylangyesbreghs/HRMManager/issues/new) if you run into a problem specific to HRMManager.
 
