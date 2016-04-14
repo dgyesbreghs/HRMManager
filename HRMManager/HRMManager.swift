@@ -33,11 +33,11 @@ public class HRMManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegat
     private var internalPeripheral : CBPeripheral?
     private var debug = false
     
-    override init() {
+    public override init() {
         super.init()
     }
     
-    init(delegate : HRMManagerDelegate) {
+    public init(delegate : HRMManagerDelegate) {
         super.init()
         self.delegate = delegate
     }

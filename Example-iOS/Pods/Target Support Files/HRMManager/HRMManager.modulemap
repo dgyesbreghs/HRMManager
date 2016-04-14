@@ -1,0 +1,6 @@
+framework module HRMManager {
+  umbrella header "HRMManager-umbrella.h"
+
+  export *
+  module * { export * }
+}

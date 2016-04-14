@@ -7,12 +7,18 @@
 //
 
 import UIKit
+import HRMManager
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, HRMManagerDelegate {
 
+    let heartRateManager = HRMManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        heartRateManager.delegate = self
+        heartRateManager.startScan()
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -21,5 +27,28 @@ class ViewController: UIViewController {
     }
 
 
+    func didConnect() {
+        
+    }
+    
+    func didDisconnect() {
+        
+    }
+    
+    func didUpdateHeartRate(heartRate: UInt8, error: NSError?) {
+        
+    }
+    
+    func didUpdateDeviceInfo(info: String, error: NSError?) {
+        
+    }
+    
+    func didFoundHeartRateMonitors(monitors: [String]) {
+        
+    }
+    
+    func didFoundBodyLocation(location: String, error: NSError?) {
+        
+    }
 }
 
