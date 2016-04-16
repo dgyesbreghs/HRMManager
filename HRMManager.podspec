@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name                  = 'HRMManager'
-  s.version               = '1.0.0'
+  s.version               = '1.0.1'
   s.homepage              = 'https://github.com/dylangyesbreghs/HRMManager'
   s.license               = { :type => 'MIT', :file => 'LICENSE' }
   s.author                = { "Dylan Gyesbreghs" => "dgyesbreghs@gmail.com" }
