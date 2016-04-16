@@ -18,7 +18,7 @@ class ViewController: UIViewController, HRMManagerDelegate {
         // Do any additional setup after loading the view, typically from a nib.
         heartRateManager.delegate = self
         heartRateManager.startScan()
-        
+        heartRateManager.enableDebugging()
     }
 
     override func didReceiveMemoryWarning() {

@@ -33,19 +33,25 @@ public class HRMManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegat
     private var internalPeripheral : CBPeripheral?
     private var debug = false
     
+    /**
+     Init
+     */
     public override init() {
         super.init()
     }
     
-    public init(delegate : HRMManagerDelegate) {
-        super.init()
-        self.delegate = delegate
-    }
-    
+    /**
+     Start scanning for devices
+     */
     public func startScan() {
         self.centralManager = CBCentralManager(delegate: self, queue: dispatch_get_main_queue())
     }
     
+    /**
+     Connect to a certain HRM device.
+     
+     @param name A string used to identify the HRM in this dictionary.
+     */
     public func connectToHeartRateMonitor(name : String) {
         if !name.isEmpty {
             if let peripheral = self.monitors[name] {
@@ -58,14 +64,25 @@ public class HRMManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegat
         }
     }
     
+    /**
+     Stop scanning for devices
+     */
     public func stopScan() {
         self.centralManager?.stopScan()
     }
     
+    /**
+     Enable the debugging info.
+     This is helphul if something goes wrong.
+     */
     public func enableDebugging() {
         self.debug = true
     }
     
+    /**
+     Disable the debugging info.
+     This is helphul if you're app is in production.
+     */
     public func disableDebugging() {
         self.debug = false
     }
