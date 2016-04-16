@@ -28,27 +28,29 @@ class ViewController: UIViewController, HRMManagerDelegate {
 
 
     func didConnect() {
-        
+        print("Did Connect to HRM")
     }
     
     func didDisconnect() {
-        
+        print("Did Disconnect to HRM")
     }
     
     func didUpdateHeartRate(heartRate: UInt8, error: NSError?) {
-        
+        print("BPM: \(heartRate)")
     }
     
     func didUpdateDeviceInfo(info: String, error: NSError?) {
-        
+        print("Device Name: \(info)")
     }
     
     func didFoundHeartRateMonitors(monitors: [String]) {
-        
+        if let monitor = monitors.first {
+            heartRateManager.connectToHeartRateMonitor(monitor)
+        }
     }
     
     func didFoundBodyLocation(location: String, error: NSError?) {
-        
+        print("Body Location: \(location)")
     }
 }
 
