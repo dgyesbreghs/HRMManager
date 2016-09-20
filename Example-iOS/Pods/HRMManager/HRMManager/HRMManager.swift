@@ -8,7 +8,7 @@
 
 import CoreBluetooth
 
-class HRMManagerConstants {
+struct HRMManagerConstants {
     static let HRM_DEVICE_INFO_SERVICE_UUID = "180A"
     static let HRM_HEART_RATE_SERVICE_UUID = "180D"
     static let HRM_MEASUREMENT_CHARACTERISTIC_UUID = "2A37"
@@ -17,21 +17,21 @@ class HRMManagerConstants {
 }
 
 public protocol HRMManagerDelegate {
-    func didFoundHeartRateMonitors(monitors : [String])
-    func didUpdateHeartRate(heartRate : UInt8, error : NSError?)
-    func didUpdateDeviceInfo(info : String, error : NSError?)
-    func didFoundBodyLocation(location : String, error : NSError?)
+    func didFoundHeartRateMonitors(_ monitors : [String])
+    func didUpdateHeartRate(_ heartRate : UInt8, error : NSError?)
+    func didUpdateDeviceInfo(_ info : String, error : NSError?)
+    func didFoundBodyLocation(_ location : String, error : NSError?)
     func didConnect()
     func didDisconnect()
 }
 
-public class HRMManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
-    public var delegate : HRMManagerDelegate?
+open class HRMManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
+    open var delegate : HRMManagerDelegate?
     
-    private var monitors = [String : CBPeripheral]()
-    private var centralManager : CBCentralManager?
-    private var internalPeripheral : CBPeripheral?
-    private var debug = false
+    fileprivate var monitors = [String : CBPeripheral]()
+    fileprivate var centralManager : CBCentralManager?
+    fileprivate var internalPeripheral : CBPeripheral?
+    fileprivate var debug = false
     
     /**
      Init
@@ -43,8 +43,8 @@ public class HRMManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegat
     /**
      Start scanning for devices
      */
-    public func startScan() {
-        self.centralManager = CBCentralManager(delegate: self, queue: dispatch_get_main_queue())
+    open func startScan() {
+        self.centralManager = CBCentralManager(delegate: self, queue: DispatchQueue.main)
     }
     
     /**
@@ -52,14 +52,14 @@ public class HRMManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegat
      
      @param name A string used to identify the HRM in this dictionary.
      */
-    public func connectToHeartRateMonitor(name : String) {
+    open func connectToHeartRateMonitor(_ name : String) {
         if !name.isEmpty {
             if let peripheral = self.monitors[name] {
                 showDebugInfo("[INFO] Connectign to Heart Rate Monitor: \(name)")
                 stopScan()
                 self.internalPeripheral = peripheral
                 self.internalPeripheral!.delegate = self
-                self.centralManager!.connectPeripheral(self.internalPeripheral!, options: nil)
+                self.centralManager!.connect(self.internalPeripheral!, options: nil)
             }
         }
     }
@@ -67,7 +67,7 @@ public class HRMManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegat
     /**
      Stop scanning for devices
      */
-    public func stopScan() {
+    open func stopScan() {
         self.centralManager?.stopScan()
     }
     
@@ -75,7 +75,7 @@ public class HRMManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegat
      Enable the debugging info.
      This is helphul if something goes wrong.
      */
-    public func enableDebugging() {
+    open func enableDebugging() {
         self.debug = true
     }
     
@@ -83,19 +83,19 @@ public class HRMManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegat
      Disable the debugging info.
      This is helphul if you're app is in production.
      */
-    public func disableDebugging() {
+    open func disableDebugging() {
         self.debug = false
     }
     
     // MARK: CBCentralManagerDelegate Methods
-    @objc public func centralManager(central: CBCentralManager, didConnectPeripheral peripheral: CBPeripheral) {
+    @objc open func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         showDebugInfo("[INFO] Did Connect to Peripheral: \(peripheral.name)")
         self.delegate?.didConnect()
         peripheral.delegate = self
         peripheral.discoverServices(nil)
     }
     
-    @objc public func centralManager(central: CBCentralManager, didDiscoverPeripheral peripheral: CBPeripheral, advertisementData: [String : AnyObject], RSSI: NSNumber) {
+    @objc open func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         let name = advertisementData[CBAdvertisementDataLocalNameKey] as! String
         if !name.isEmpty {
             showDebugInfo("[INFO] Found Heart Rate Monitor: \(name)")
@@ -104,73 +104,73 @@ public class HRMManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegat
         }
     }
     
-    @objc public func centralManagerDidUpdateState(central: CBCentralManager) {
-        if central.state == .PoweredOn {
+    @objc open func centralManagerDidUpdateState(_ central: CBCentralManager) {
+        if central.state == .poweredOn {
             showDebugInfo("[INFO] Update state to: Powered On")
             let services = [CBUUID.init(string: HRMManagerConstants.HRM_HEART_RATE_SERVICE_UUID)]
-            self.centralManager?.scanForPeripheralsWithServices(services, options: nil)
+            self.centralManager?.scanForPeripherals(withServices: services, options: nil)
         }
     }
     
     // MARK: CBPeripheralDelegate Methods
-    @objc public func peripheral(peripheral: CBPeripheral, didDiscoverServices error: NSError?) {
+    @objc open func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         if let services = peripheral.services {
             for service in services {
                 showDebugInfo("[INFO] Did discover service: \(service)")
-                peripheral.discoverCharacteristics(nil, forService: service)
+                peripheral.discoverCharacteristics(nil, for: service)
             }
         }
     }
     
-    @objc public func peripheral(peripheral: CBPeripheral, didDiscoverCharacteristicsForService service: CBService, error: NSError?) {
-        if service.UUID.isEqual(CBUUID.init(string: HRMManagerConstants.HRM_HEART_RATE_SERVICE_UUID)) {
+    @objc open func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
+        if service.uuid.isEqual(CBUUID.init(string: HRMManagerConstants.HRM_HEART_RATE_SERVICE_UUID)) {
             if let characteristics = service.characteristics {
                 for aChar in characteristics {
                     showDebugInfo("[INFO] Did discover characteristics service: \(aChar)")
-                    if aChar.UUID.isEqual(CBUUID.init(string: HRMManagerConstants.HRM_MEASUREMENT_CHARACTERISTIC_UUID)) {
-                        self.internalPeripheral?.setNotifyValue(true, forCharacteristic: aChar)
-                    } else if aChar.UUID.isEqual(CBUUID.init(string: HRMManagerConstants.HRM_BODY_LOCATION_CHARACTERISTIC_UUID)) {
-                        self.internalPeripheral?.readValueForCharacteristic(aChar)
+                    if aChar.uuid.isEqual(CBUUID.init(string: HRMManagerConstants.HRM_MEASUREMENT_CHARACTERISTIC_UUID)) {
+                        self.internalPeripheral?.setNotifyValue(true, for: aChar)
+                    } else if aChar.uuid.isEqual(CBUUID.init(string: HRMManagerConstants.HRM_BODY_LOCATION_CHARACTERISTIC_UUID)) {
+                        self.internalPeripheral?.readValue(for: aChar)
                     }
                 }
             }
         }
         
-        if service.UUID.isEqual(CBUUID.init(string: HRMManagerConstants.HRM_DEVICE_INFO_SERVICE_UUID)) {
+        if service.uuid.isEqual(CBUUID.init(string: HRMManagerConstants.HRM_DEVICE_INFO_SERVICE_UUID)) {
             if let characteristics = service.characteristics {
                 for aChar in characteristics {
                     showDebugInfo("[INFO] Found a device Manufacture name: \(aChar)")
-                    if aChar.UUID.isEqual(CBUUID.init(string: HRMManagerConstants.HRM_MANUFACTURER_NAME_CHARACTERISTIC_UUID)) {
-                        self.internalPeripheral?.readValueForCharacteristic(aChar)
+                    if aChar.uuid.isEqual(CBUUID.init(string: HRMManagerConstants.HRM_MANUFACTURER_NAME_CHARACTERISTIC_UUID)) {
+                        self.internalPeripheral?.readValue(for: aChar)
                     }
                 }
             }
         }
     }
     
-    @objc public func peripheral(peripheral: CBPeripheral, didUpdateValueForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
-        if characteristic.UUID.isEqual(CBUUID.init(string: HRMManagerConstants.HRM_MEASUREMENT_CHARACTERISTIC_UUID)) {
-            self.calculateHeartRate(characteristic, error: error)
+    @objc open func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
+        if characteristic.uuid.isEqual(CBUUID.init(string: HRMManagerConstants.HRM_MEASUREMENT_CHARACTERISTIC_UUID)) {
+            self.calculateHeartRate(characteristic, error: error as NSError?)
         }
         
-        if characteristic.UUID.isEqual(CBUUID.init(string: HRMManagerConstants.HRM_BODY_LOCATION_CHARACTERISTIC_UUID)) {
-            self.renderBodyLocation(characteristic, error: error)
+        if characteristic.uuid.isEqual(CBUUID.init(string: HRMManagerConstants.HRM_BODY_LOCATION_CHARACTERISTIC_UUID)) {
+            self.renderBodyLocation(characteristic, error: error as NSError?)
         }
         
-        if characteristic.UUID.isEqual(CBUUID.init(string: HRMManagerConstants.HRM_MANUFACTURER_NAME_CHARACTERISTIC_UUID)) {
-            self.renderManufactureName(characteristic, error: error)
+        if characteristic.uuid.isEqual(CBUUID.init(string: HRMManagerConstants.HRM_MANUFACTURER_NAME_CHARACTERISTIC_UUID)) {
+            self.renderManufactureName(characteristic, error: error as NSError?)
         }
     }
     
-    @objc public func centralManager(central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: NSError?) {
+    @objc open func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         self.delegate?.didDisconnect()
     }
     
     // MARK: Private Methods
-    private func calculateHeartRate(characteristic: CBCharacteristic, error : NSError?) {
+    fileprivate func calculateHeartRate(_ characteristic: CBCharacteristic, error : NSError?) {
         if error == nil {
             if let data = characteristic.value {
-                let reportData = UnsafePointer<UInt8>(data.bytes)
+                let reportData = (data as NSData).bytes.bindMemory(to: UInt8.self, capacity: data.count)
                 self.delegate?.didUpdateHeartRate(reportData[1], error: error)
             }
         } else {
@@ -178,10 +178,10 @@ public class HRMManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegat
         }
     }
     
-    private func renderBodyLocation(characteristic: CBCharacteristic, error : NSError?) {
+    fileprivate func renderBodyLocation(_ characteristic: CBCharacteristic, error : NSError?) {
         if error == nil {
             if let data = characteristic.value {
-                let bodyData = UnsafePointer<UInt8>(data.bytes)
+                let bodyData = (data as NSData).bytes.bindMemory(to: UInt8.self, capacity: data.count)
                 var location = "Undefined"
                 if bodyData[0] == 0 {
                     location = "Chest"
@@ -194,10 +194,10 @@ public class HRMManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegat
         }
     }
     
-    private func renderManufactureName(characteristic: CBCharacteristic, error : NSError?) {
+    fileprivate func renderManufactureName(_ characteristic: CBCharacteristic, error : NSError?) {
         if error == nil {
             if let data = characteristic.value {
-                if let name = String(data: data, encoding: NSUTF8StringEncoding) {
+                if let name = String(data: data, encoding: String.Encoding.utf8) {
                     self.delegate?.didUpdateDeviceInfo(name, error: nil)
                 }
             }
@@ -206,7 +206,7 @@ public class HRMManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegat
         }
     }
     
-    private func showDebugInfo(debugInfo : String) {
+    fileprivate func showDebugInfo(_ debugInfo : String) {
         if debug {
             print(debugInfo)
         }
