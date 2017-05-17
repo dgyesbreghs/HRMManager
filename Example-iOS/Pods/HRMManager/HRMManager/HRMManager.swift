@@ -25,7 +25,7 @@ public protocol HRMManagerDelegate {
     func didDisconnect()
 }
 
-open class HRMManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
+open class HRMManager: NSObject {
     open var delegate : HRMManagerDelegate?
     
     fileprivate var monitors = [String : CBPeripheral]()
@@ -55,7 +55,7 @@ open class HRMManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
     open func connectToHeartRateMonitor(_ name : String) {
         if !name.isEmpty {
             if let peripheral = self.monitors[name] {
-                showDebugInfo("[INFO] Connectign to Heart Rate Monitor: \(name)")
+                showDebugInfo("[INFO] Connecting to Heart Rate Monitor: \(name)")
                 stopScan()
                 self.internalPeripheral = peripheral
                 self.internalPeripheral!.delegate = self
@@ -87,9 +87,57 @@ open class HRMManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
         self.debug = false
     }
     
-    // MARK: CBCentralManagerDelegate Methods
+    // MARK: Private Methods
+    fileprivate func calculateHeartRate(_ characteristic: CBCharacteristic, error : NSError?) {
+        if error == nil {
+            if let data = characteristic.value {
+                let reportData = (data as NSData).bytes.bindMemory(to: UInt8.self, capacity: data.count)
+                self.delegate?.didUpdateHeartRate(reportData[1], error: error)
+            }
+        } else {
+            self.delegate?.didUpdateHeartRate(0, error: error)
+        }
+    }
+    
+    fileprivate func renderBodyLocation(_ characteristic: CBCharacteristic, error : NSError?) {
+        if error == nil {
+            if let data = characteristic.value {
+                let bodyData = (data as NSData).bytes.bindMemory(to: UInt8.self, capacity: data.count)
+                var location = "Undefined"
+                if bodyData[0] == 0 {
+                    location = "Chest"
+                }
+                self.delegate?.didFoundBodyLocation(location, error: nil)
+                
+            }
+        } else {
+            self.delegate?.didFoundBodyLocation("", error: error)
+        }
+    }
+    
+    fileprivate func renderManufactureName(_ characteristic: CBCharacteristic, error : NSError?) {
+        if error == nil {
+            if let data = characteristic.value {
+                if let name = String(data: data, encoding: String.Encoding.utf8) {
+                    self.delegate?.didUpdateDeviceInfo(name, error: nil)
+                }
+            }
+        } else {
+            self.delegate?.didUpdateDeviceInfo("", error: error)
+        }
+    }
+    
+    fileprivate func showDebugInfo(_ debugInfo : String) {
+        if debug {
+            print(debugInfo)
+        }
+    }
+}
+
+// MARK: CBCentralManagerDelegate
+extension HRMManager: CBCentralManagerDelegate {
     @objc open func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
-        showDebugInfo("[INFO] Did Connect to Peripheral: \(peripheral.name)")
+        showDebugInfo("[INFO] Did Connect to Peripheral: \(String(describing: peripheral.name))")
         self.delegate?.didConnect()
         peripheral.delegate = self
         peripheral.discoverServices(nil)
@@ -111,8 +159,10 @@ open class HRMManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
             self.centralManager?.scanForPeripherals(withServices: services, options: nil)
         }
     }
-    
-    // MARK: CBPeripheralDelegate Methods
+}
+
+// MARK: CBPeripheralDelegate
+extension HRMManager: CBPeripheralDelegate {
     @objc open func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         if let services = peripheral.services {
             for service in services {
@@ -164,51 +214,5 @@ open class HRMManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate 
     
     @objc open func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         self.delegate?.didDisconnect()
-    }
-    
-    // MARK: Private Methods
-    fileprivate func calculateHeartRate(_ characteristic: CBCharacteristic, error : NSError?) {
-        if error == nil {
-            if let data = characteristic.value {
-                let reportData = (data as NSData).bytes.bindMemory(to: UInt8.self, capacity: data.count)
-                self.delegate?.didUpdateHeartRate(reportData[1], error: error)
-            }
-        } else {
-            self.delegate?.didUpdateHeartRate(0, error: error)
-        }
-    }
-    
-    fileprivate func renderBodyLocation(_ characteristic: CBCharacteristic, error : NSError?) {
-        if error == nil {
-            if let data = characteristic.value {
-                let bodyData = (data as NSData).bytes.bindMemory(to: UInt8.self, capacity: data.count)
-                var location = "Undefined"
-                if bodyData[0] == 0 {
-                    location = "Chest"
-                }
-                self.delegate?.didFoundBodyLocation(location, error: nil)
-                
-            }
-        } else {
-            self.delegate?.didFoundBodyLocation("", error: error)
-        }
-    }
-    
-    fileprivate func renderManufactureName(_ characteristic: CBCharacteristic, error : NSError?) {
-        if error == nil {
-            if let data = characteristic.value {
-                if let name = String(data: data, encoding: String.Encoding.utf8) {
-                    self.delegate?.didUpdateDeviceInfo(name, error: nil)
-                }
-            }
-        } else {
-            self.delegate?.didUpdateDeviceInfo("", error: error)
-        }
-    }
-    
-    fileprivate func showDebugInfo(_ debugInfo : String) {
-        if debug {
-            print(debugInfo)
-        }
     }
 }
